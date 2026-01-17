@@ -1,0 +1,111 @@
+<div id="fileUploadContainer">
+    <div id="browserSupportWarn" class="mb-3 container alert"></div>
+    <div class="container justify-content-center">
+        <!-- Modal -->
+        <div id="exampleModal1" > <!--th:insert="modal- :: noFileModal"-->
+        </div>
+        <div  class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #d2322d;color: white;">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            <i class="fa fa-exclamation-triangle"></i> Error</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div ng-hide="showdebug" class="" style="">
+                            <p id="modalContent" style="font-size: 20px; display: inline; width: 150px; word-break: break-all; word-wrap: break-word;">
+                                No C-CDA attachment uploaded
+                            </p><br>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" id="modalOKBtn" data-bs-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="userForm">
+            <form id=fileploadForm method="POST" enctype="multipart/form-data" action="/">
+                <div class="row">
+                    <div class="col-sm-12" style="position:relative;">
+                        <div class="mb-3 drop" id="uploadFile">
+                            <input class = "col-sm-12 form-control form-control-lg" type="file" name="file" id="fileUpload" />
+                        </div>
+                        <div class="col-lg">
+                            <div class="mb-3">
+                                <div class=" mb-3 row">
+                                    <div class="col-sm">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckpatientID" checked disabled>
+                                        <label class="form-check-label" for="flexCheckpatientID">
+                                            Patient IDs
+                                        </label>
+                                    </div>
+                                    <div class="col-sm">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckpatientName" checked disabled>
+                                        <label class="form-check-label" for="flexCheckpatientName">
+                                            Patient Names
+                                        </label>
+                                    </div>
+                                    <div class="col-sm">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckpatientAddress" checked disabled>
+                                        <label class="form-check-label" for="flexCheckpatientAddress">
+                                            Patient Addresses
+                                        </label>
+                                    </div>
+                                    <div class="col-sm">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckpatientDOB" checked disabled>
+                                        <label class="form-check-label" for="flexCheckpatientDOB">
+                                            Patient DOB
+                                        </label>
+                                    </div>
+                                    <div class="col-sm">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckpatientGender" checked disabled>
+                                        <label class="form-check-label" for="flexCheckpatientGender">
+                                            Patient Gender
+                                        </label>
+                                    </div>
+                                    <div class="col-sm">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckpatientRaceEthnicity" checked disabled>
+                                        <label class="form-check-label" for="flexCheckpatientRaceEthnicity">
+                                            Patient Race/Ethnicity
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <button class="btn btn-primary " id="deidentifybtn" type="submit" data-bs-toggle="modal">DeIdentify C-CDA</button>
+
+                            <div id="download" class="d-inline-block" >
+                                <!--  Ajax call fills this div with content -->
+                            </div>
+
+                        </div>
+                        <div class="mb-3" style="position: absolute; width: 99%;">
+                            <div id="progress-holder" class="progress">
+                                <div class="progress-bar  progress-bar-striped  progress-bar-animated d-none" id="progress_bar" role="progressbar" aria-label="Example with label" style="width: 0%;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <div class="container d-flex justify-content-center">
+        <hr>
+        <div id="testDiv" >
+            <!-- jQuery Ajax call response shows up here !-->
+        </div>
+    </div>
+
+    <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/deidapp.js}"></script>
+</div>
+

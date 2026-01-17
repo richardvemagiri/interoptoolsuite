@@ -1,0 +1,56 @@
+
+<!--<div th:fragment="xpaths-info" >-->
+<!--    <H2>Received from server:</H2>-->
+<!--    <span th:text="${msg}"></span>-->
+<!--</div>-->
+
+
+
+<div th:fragment="xpaths-info" >
+<div class="container d-flex justify-content-center">
+<hr>
+
+    <div id="downloadfile" th:if="${files != null and !files.isEmpty()}">
+        <div class="mb-3 row" >
+            <div class="col-sm">
+                <label >Download DeIdentified C-CDA</label> <!-- style="padding-top: 30px" -->
+            </div>
+        </div>
+
+        <div class="mb-3 row"> <!--  -->
+            <!--                        <ul  style="list-style-type:none;">-->
+            <!--                            <li th:each="file : ${files}">-->
+            <div class="col-sm text-center">
+                <a class="btn btn-success" th:href="${files[0]}">Download</a>
+            </div>
+            <!--                <button class="btn btn-success" th:onclick="${file}" type="button">Download DeID C-CDA</button>-->
+
+            <!--                            </li>-->
+            <!--                        </ul>-->
+        </div>
+    </div>
+</div>
+
+<div class="container d-flex justify-content-center">
+
+    <ul>
+
+        <div th:if="${xPathsNotUpdated != null}"   >
+
+            <div th:if="${!xPathsNotUpdated.isEmpty()}">
+                <h6 th:text="${'Below XPaths were not found:'}"/>
+            </div>
+
+                <li th:each="xPathNotUpdated : ${xPathsNotUpdated}">
+                    <h7 th:text="${xPathNotUpdated}"/>
+                </li>
+
+        </div>
+
+        <div th:if="${userFeedback != null}">
+            <h6 id="usrFeedback" th:text="${userFeedback}"/>
+        </div>
+
+    </ul>
+</div>
+</div>

@@ -1,0 +1,293 @@
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/schema/security">
+<head>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{/lib/font-awesome-4.7.0/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/deidapp.css}"/>
+</head>
+
+<body>
+
+
+<div class="alert alert-warning alert-dismissible text-center fade show" id="disclaimer">
+
+    <p>Note: This tool does not retain/store your submitted files. </p>
+
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+</div>
+
+
+<h3 class="display-5 text-center"><strong>C-CDA DeID Tool</strong></h3>
+
+<hr>
+
+<ul class="nav nav-tabs nav-fill">
+    <li class="nav-item">
+        <a class="nav-link" href="#" id="fileuploadtab" onClick="showFileUploadPage();">Select File</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" id="texttab" aria-current="page" href="#" onClick="showTextPage();">Input Text</a>
+    </li>
+</ul>
+
+
+<div id="browserSupportWarn" class="mb-3 container alert"></div>
+
+<div class="container justify-content-center">
+    <div id="textmodepage">
+        <div id="textModContainer">
+            <div class="modal fade" id="textmod_homeModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color: #d2322d;color: white;">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                <i class="fa fa-exclamation-triangle"></i> Error</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div ng-hide="showdebug" class="" style="">
+                                <p id="userAlert"
+                                   style="font-size: 20px; display: inline; width: 150px; word-break: break-all; word-wrap: break-word;">
+                                </p><br>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" id="modalOKBtn" data-bs-dismiss="modal">Ok
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container pagebody justify-content-center">
+                <div class="row">
+                    <form id="textForm" method="POST" enctype="multipart/form-data" action="textmod">
+                        <div class=" mb-3 mx-1 row formBox">
+                            <div class="col-sm">
+                                <input class="form-check-input textForm-identifierType" type="checkbox" name="category"
+                                       path=category value="ID" id="textCheckpatientID">
+                                <label class="form-check-label" for="textCheckpatientID">
+                                    IDs
+                                </label>
+                            </div>
+                            <div class="col-sm">
+                                <input class="form-check-input textForm-identifierType" type="checkbox" name="category"
+                                       path=category value="Name" id="textCheckpatientName">
+                                <label class="form-check-label" for="textCheckpatientName">
+                                    Names
+                                </label>
+                            </div>
+                            <div class="col-sm">
+                                <input class="form-check-input textForm-identifierType" type="checkbox" name="category"
+                                       path=category value="Addr" id="textCheckpatientAddress">
+                                <label class="form-check-label" for="textCheckpatientAddress">
+                                    Addresses
+                                </label>
+                            </div>
+                            <div class="col-sm">
+                                <input class="form-check-input textForm-identifierType" type="checkbox" name="category"
+                                       path=category value="DOB" id="textCheckpatientDOB">
+                                <label class="form-check-label" for="textCheckpatientDOB">
+                                    DOB
+                                </label>
+                            </div>
+                            <div class="col-sm">
+                                <input class="form-check-input textForm-identifierType" type="checkbox" name="category"
+                                       path=category value="Gender" id="textCheckpatientGender">
+                                <label class="form-check-label" for="textCheckpatientGender">
+                                    Gender
+                                </label>
+                            </div>
+                            <div class="col-sm">
+                                <input class="form-check-input textForm-identifierType" type="checkbox" name="category"
+                                       path=category value="RaceEthnicity" id="textCheckpatientRaceEthnicity">
+                                <label class="form-check-label" for="textCheckpatientRaceEthnicity">
+                                    Race/Ethnicity
+                                </label>
+                            </div>
+                            <div class="col-sm">
+                                <input class="form-check-input textForm-identifierType" type="checkbox" name="category"
+                                       path=category value="MaritalStatus" id="textCheckpatientMaritalStatus">
+                                <label class="form-check-label" for="textCheckpatientMaritalStatus">
+                                    Marital Status
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 formBox">
+                            <h4 class="mt-3 mr-3 pt-3 pr-3">C-CDA XML:</h4>
+                            <textarea spellcheck="false" autocomplete="off" autocorrect="off" id="textinput"
+                                      name="ccdainput" rows="30" cols="50"
+                                      placeholder="Paste C-CDA XML here..."></textarea>
+                        </div>
+
+                        <div class="mt-3 pt-3">
+                            <button class="btn btn-primary " type="submit" id="removePII" data-bs-toggle="modal">
+                                DeIdentify C-CDA
+                            </button>
+                            <div class="d-inline-block" id="feedbackText">
+                            </div>
+                        </div>
+
+                        <div class="mt-3" style="width: 100%;">
+                            <div id="text-progress-holder" class="progress">
+                                <div class="progress-bar  progress-bar-striped  progress-bar-animated d-none"
+                                     id="text-progress_bar" role="textprogressbar" aria-label="text processing"
+                                     style="width:1%;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="col-sm-12" id="outputText">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div id="fileuploadpage">
+
+        <div id="fileUploadContainer">
+
+            <div id="fileUploadBrowserSupportWarn" class="mb-3 container alert"></div>
+            <div class="container justify-content-center">
+            </div>
+            <div class="modal fade" id="fileUploadModal" tabindex="-1" aria-labelledby="fileUploadModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color: #d2322d;color: white;">
+                            <h5 class="modal-title" id="fileUploadModalLabel">
+                                <i class="fa fa-exclamation-triangle"></i> Error</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div ng-hide="showdebug" class="" style="">
+                                <p id="fileUploadModalContent"
+                                   style="font-size: 20px; display: inline; width: 150px; word-break: break-all; word-wrap: break-word;">
+                                    No C-CDA attachment uploaded
+                                </p><br>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" id="fileUploadModalOKBtn"
+                                    data-bs-dismiss="modal">Ok
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="userForm">
+                <form id=fileploadForm method="POST" enctype="multipart/form-data" action="/"> <!-- action="/" -->
+                    <div class="row">
+                        <div class="col-sm-12" style="position:relative;">
+                            <div class="mb-3 drop" id="uploadFile">
+                                <input class="col-sm-12 form-control form-control-lg" type="file" name="file" path=file
+                                       id="fileUpload"/>
+                            </div>
+                            <div class="col-lg">
+                                <div class="mb-3">
+                                    <div class=" mb-3 mx-1 row formBox">
+                                        <div class="col-sm">
+                                            <input class="form-check-input category-checkbox" type="checkbox"
+                                                   name="category" path=category value="ID" id="flexCheckpatientID">
+                                            <label class="form-check-label" for="flexCheckpatientID">
+                                                IDs
+                                            </label>
+                                        </div>
+                                        <div class="col-sm">
+                                            <input class="form-check-input category-checkbox" type="checkbox"
+                                                   name="category" path=category value="Name" id="flexCheckpatientName">
+                                            <label class="form-check-label" for="flexCheckpatientName">
+                                                Names
+                                            </label>
+                                        </div>
+                                        <div class="col-sm">
+                                            <input class="form-check-input category-checkbox" type="checkbox"
+                                                   name="category" path=category value="Addr"
+                                                   id="flexCheckpatientAddress">
+                                            <label class="form-check-label" for="flexCheckpatientAddress">
+                                                Addresses
+                                            </label>
+                                        </div>
+                                        <div class="col-sm">
+                                            <input class="form-check-input category-checkbox" type="checkbox"
+                                                   name="category" path=category value="DOB" id="flexCheckpatientDOB">
+                                            <label class="form-check-label" for="flexCheckpatientDOB">
+                                                DOB
+                                            </label>
+                                        </div>
+                                        <div class="col-sm">
+                                            <input class="form-check-input category-checkbox" type="checkbox"
+                                                   name="category" path=category value="Gender"
+                                                   id="flexCheckpatientGender">
+                                            <label class="form-check-label" for="flexCheckpatientGender">
+                                                Gender
+                                            </label>
+                                        </div>
+                                        <div class="col-sm">
+                                            <input class="form-check-input category-checkbox" type="checkbox"
+                                                   name="category" path=category value="RaceEthnicity"
+                                                   id="flexCheckpatientRaceEthnicity">
+                                            <label class="form-check-label" for="flexCheckpatientRaceEthnicity">
+                                                Race/Ethnicity
+                                            </label>
+                                        </div>
+                                        <div class="col-sm">
+                                            <input class="form-check-input category-checkbox" type="checkbox"
+                                                   name="category" path=category value="MaritalStatus"
+                                                   id="flexCheckpatientMaritalStatus">
+                                            <label class="form-check-label" for="flexCheckpatientMaritalStatus">
+                                                Marital Status
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <button class="btn btn-primary " id="deidentifybtn" type="submit"
+                                        data-bs-toggle="modal">DeIdentify C-CDA
+                                </button>
+
+                                <div id="download" class="d-inline-block">
+                                    <!--  Ajax call fills this div with content -->
+                                </div>
+
+                            </div>
+                            <div class="mb-3" style="position: absolute; width: 99%;">
+                                <div id="progress-holder" class="progress">
+                                    <div class="progress-bar  progress-bar-striped  progress-bar-animated d-none"
+                                         id="progress_bar" role="progressbar" aria-label="Example with label"
+                                         style="width: 0%;" aria-valuenow="" aria-valuemin="0"
+                                         aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="container d-flex justify-content-center">
+            <hr>
+            <div id="testDiv">
+                <!--            jQuery Ajax call is showing this!-->
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+
+
+<script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.7.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/deidapp.js}"></script>
+<script type="text/javascript" th:src="@{/js/deidapp-textmod.js}"></script>
+
+</body>
+</html>
