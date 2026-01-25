@@ -11,11 +11,11 @@
 <!--        <version>3.5.6</version>-->
         <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
-    <artifactId>dashboard</artifactId>
+    <artifactId>dashboard-shell</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>dashboard</name>
     <description>dashboard</description>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <url/>
     <licenses>
         <license/>
@@ -34,11 +34,7 @@
     </properties>
     <dependencies>
 
-        <dependency>
-            <groupId>com.ecw</groupId>
-            <artifactId>ccda-deid-tool</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
