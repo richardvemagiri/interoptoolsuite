@@ -16611,7 +16611,7 @@ textarea.form-control-lg {
   width: 100%;
   background: #fff;
   padding: 0 10px;
-  top: 72px;
+/*  top: 72px; */
 }
 @media (max-width: 991.98px) {
   .app-header {
@@ -16691,7 +16691,8 @@ textarea.form-control-lg {
   border-radius: 20px;
 }
 .body-wrapper .body-wrapper-inner {
-  margin-top: 138px;
+/*  margin-top: 138px; */
+  padding-top: 70px;
   border-radius: 20px !important;
   margin-bottom: 30px;
   background: #f4f7fb;
@@ -16727,7 +16728,7 @@ textarea.form-control-lg {
 
 #main-wrapper[data-layout=vertical][data-sidebar-position=fixed] .left-sidebar {
   position: fixed;
-  top: 72px;
+/*  top: 72px; */
 }
 @media (max-width: 991.98px) {
   #main-wrapper[data-layout=vertical][data-sidebar-position=fixed] .left-sidebar {

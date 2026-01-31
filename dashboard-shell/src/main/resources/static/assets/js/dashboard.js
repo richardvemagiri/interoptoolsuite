@@ -149,14 +149,15 @@ $(function () {
 
 $(document).ready(function() {
   $('.tool-link').on('click', function() {
-    alert("Hello");
+    //alert("Hello");
     var toolName = $(this).data('tool');
-    alert(toolName);
+    //alert(toolName);
     $.ajax({
       url: '/content/' + toolName, // URL of your controller endpoint
       type: 'GET',
       success: function(data) {
-        alert(data);
+        //alert(data);
+        $('.defaultContent').hide();
         $('#content-area').html(data); // Inject the loaded fragment into the container
       },
       error: function(xhr, status, error) {
