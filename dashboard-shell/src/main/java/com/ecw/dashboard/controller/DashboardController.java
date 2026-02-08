@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class DashboardController {
 
-    @RequestMapping("/")
+    @GetMapping("/dashboard")
     public String getHomePage(){
         return "sample-page";
 
