@@ -24,6 +24,8 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
+//@RequestMapping("/deid-tool")
+@RequestMapping("${suite.deid.base-path:/deid-tool}")
 public class DeIDAppController {
 
 	private final StorageService storageService;
@@ -40,7 +42,7 @@ public class DeIDAppController {
 	}
 
 
-	@GetMapping("/")
+	@GetMapping({"", "/"})
 	public String showHomePage(Model model, HttpServletRequest request, HttpSession session) {
 
 		log.debug("Application Context: " + request.getContextPath());
@@ -77,7 +79,7 @@ public class DeIDAppController {
 	}
 
 	//TODO: Explore usage of DTO when form is submitted via AJAX
-	@PostMapping("/")
+	@PostMapping({"", "/"})
 	public String processFile(@RequestParam("file") MultipartFile file, Model model,
 							  @RequestParam("categories") List<String> categories) throws InterruptedException {
 

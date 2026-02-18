@@ -7,19 +7,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+//@RequestMapping("/dashboard")
+@RequestMapping("${suite.dashboard.base-path:/dashboard}")
 public class DashboardController {
 
-    @GetMapping("/dashboard")
+    @GetMapping
     public String getHomePage(){
         return "sample-page";
 
     }
 
+    @GetMapping("/")
+    public String redirectRoot() {
+//        return "redirect:/dashboard";
+        return "forward:/dashboard";
+    }
+
+
     @GetMapping("/content/{tool}")
     public String getToolContent(@PathVariable String tool) {
         return switch (tool) {
             case "ccdaviewer" -> "tools/ccda-viewer :: content";
-            case "deidtool" -> "tools/ccda-deid-tool :: content";
+//            case "deidtool" -> "tools/ccda-deid-tool :: content";
+            case "deidtool" -> "forward:/deid-tool/";
             default -> "tools/not-found :: content";
         };
     }

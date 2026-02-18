@@ -148,12 +148,17 @@ $(function () {
 })
 
 $(document).ready(function() {
+  const ctxMeta = document.querySelector('meta[name="context-path"]');
+  const ctx = ctxMeta ? ctxMeta.getAttribute('content').replace(/\/$/, '') : '';
+  const dashboardBase = document.querySelector('meta[name="dashboard-base-path"]').content || '/dashboard';
+
+
   $('.tool-link').on('click', function() {
     //alert("Hello");
     var toolName = $(this).data('tool');
     //alert(toolName);
     $.ajax({
-      url: '/content/' + toolName, // URL of your controller endpoint
+      url: `${dashboardBase}/content/${toolName}`, // URL of your controller endpoint
       type: 'GET',
       success: function(data) {
         //alert(data);

@@ -1,0 +1,30 @@
+/* Sidebar elevation + stacking */
+.left-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1040;
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.18);
+}
+
+/* Push main content clear of the pinned sidebar */
+.body-wrapper {
+    margin-left: 260px;
+    position: relative;
+    z-index: 1;
+}
+
+.body-wrapper .body-wrapper-inner{
+    background-color: #FFFFFF;
+}
+
+/* Keep mobile drawer behavior */
+@media (max-width: 991px) {
+    .left-sidebar {
+        z-index: 1050;
+    }
+    .body-wrapper {
+        margin-left: 0;
+    }
+}

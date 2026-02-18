@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    $('.deid-modal').on('click', function (evt) {
+        if (evt.target === this) {
+            closeModal(this.id);
+        }
+    });
 
     // $('.category-checkbox').on('click', function() {
     //     $('.category-checkbox').each(function() {
@@ -26,26 +31,17 @@ $(document).ready(function () {
             "fully supported due to browser limitations. Please upgrade your browser.</p>");
     }
 
-    var myFileUploadModal = new bootstrap.Modal(document.getElementById('fileUploadModal'), {
-        keyboard: false
-    });
 });
 
 
     $('#fileploadForm').submit(function (event) {
-
-        var myFileUploadModal = new bootstrap.Modal(document.getElementById('fileUploadModal'), {
-            keyboard: false
-        });
-
 
         // check if file is picked
         if ($('#fileUpload').val().length === 0) {
             // $('#exampleModal1').load("modalFeedBack");
 
             // var modalfeedBack = $($.parseHTML(html)).filter("#exampleModal");
-            $('#fileUploadModalContent').html("Please select a file!");
-            myFileUploadModal.show();
+        showModalWithMessage('fileUploadModal', 'fileUploadModalContent', "Please select a file!");
             // myModal.html(modalfeedBack);
             return false;
         }
@@ -53,8 +49,7 @@ $(document).ready(function () {
         // check if file is XML
         var allowedExtensions = /(\.xml|\.XML)$/i;
         if (!allowedExtensions.exec($('#fileUpload').val())) {
-            $('#fileUploadModalContent').html("Please select a valid C-CDA XML file!");
-            myFileUploadModal.show();
+        showModalWithMessage('fileUploadModal', 'fileUploadModalContent', "Please select a valid C-CDA XML file!");
             // alert('Please select a valid C-CDA XML file');
             return false;
         }
@@ -81,6 +76,30 @@ $(document).ready(function () {
         submitFile();
     });
 
+
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    modal.classList.add('show');
+    document.body.classList.add('deid-modal-open');
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    modal.classList.remove('show');
+    if (!document.querySelector('.deid-modal.show')) {
+        document.body.classList.remove('deid-modal-open');
+    }
+}
+
+function showModalWithMessage(modalId, messageElementId, message) {
+    const target = document.getElementById(messageElementId);
+    if (target) {
+        target.innerHTML = message;
+    }
+    openModal(modalId);
+}
 
 function timeout(ms){
     console.log("Inside timeout ...");
@@ -111,6 +130,10 @@ function showFileUploadPage(){
 
 function submitFile() {
     console.log("File submitted for processing...");
+
+    const ctxMeta = document.querySelector('meta[name="context-path"]');
+    const ctx = ctxMeta ? ctxMeta.getAttribute('content').replace(/\/$/, '') : '';
+    const deidBase = document.querySelector('meta[name="deid-base-path"]').content || '/deid-tool';
 
     var data = new FormData();
     data.append('file', $('#fileUpload')[0].files[0]);
@@ -160,7 +183,7 @@ function submitFile() {
             return xhr;
         },
         method: "POST",
-        url: "/deid-tool/",
+        url: `${deidBase}/`,
         contentType: false,
         data: data,
         cache: false,
@@ -213,12 +236,8 @@ function submitFile() {
                 return false;
             }
 
-            var myFileUploadModal = new bootstrap.Modal(document.getElementById('fileUploadModal'), {
-                keyboard: false
-            });
             // alert('Error occurred! Please refresh the page and try again!');
-            $('#fileUploadModalContent').html("Error occurred! <br/>Please refresh the page and try again.");
-            myFileUploadModal.show();
+            showModalWithMessage('fileUploadModal', 'fileUploadModalContent', "Error occurred! Please refresh the page and try again.");
             var usrfeedback = $($.parseHTML(response)).filter("#feedback");
             $('#testDiv').show();
             $('#testDiv').html(usrfeedback);
