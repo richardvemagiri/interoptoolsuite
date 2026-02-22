@@ -10,7 +10,7 @@
 <div th:fragment="content">
 <div class="alert alert-warning alert-dismissible text-center fade show" id="disclaimer">
 
-    <p>Note: This tool does not retain/store your submitted files. </p>
+    <p id="topAlertWarning">Note: This tool does not retain/store your submitted files. </p>
 
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
@@ -21,7 +21,7 @@
 
 <hr>
 
-<ul class="nav nav-tabs nav-fill">
+<ul class="nav nav-tabs nav-fill" id="navTabs">
     <li class="nav-item" role="presentation">
 <!--        <a class="nav-link" href="#" id="fileuploadtab" onClick="showFileUploadPage();">Select File</a>-->
         <button class="nav-link" href="#" id="fileuploadtab" onClick="showFileUploadPage();" type="button" role="tab">Select File</button>
@@ -67,60 +67,61 @@
             <div class="container pagebody justify-content-center">
                 <div class="row">
                     <form id="textForm" method="POST" enctype="multipart/form-data" action="textmod">
-                        <div class="mb-3 mx-1 formBox">
-                            <div class="row">
-                            <div class="col-sm">
-                                <input class="form-check-input textForm-identifierType" type="checkbox" name="category"
-                                       path=category value="ID" id="textCheckpatientID">
-                                <label class="form-check-label" for="textCheckpatientID">
-                                    IDs
-                                </label>
-                            </div>
-                            <div class="col-sm">
-                                <input class="form-check-input textForm-identifierType" type="checkbox" name="category"
-                                       path=category value="Name" id="textCheckpatientName">
-                                <label class="form-check-label" for="textCheckpatientName">
-                                    Names
-                                </label>
-                            </div>
-                            <div class="col-sm">
-                                <input class="form-check-input textForm-identifierType" type="checkbox" name="category"
-                                       path=category value="Addr" id="textCheckpatientAddress">
-                                <label class="form-check-label" for="textCheckpatientAddress">
-                                    Addresses
-                                </label>
-                            </div>
-                            <div class="col-sm">
-                                <input class="form-check-input textForm-identifierType" type="checkbox" name="category"
-                                       path=category value="DOB" id="textCheckpatientDOB">
-                                <label class="form-check-label" for="textCheckpatientDOB">
-                                    DOB
-                                </label>
-                            </div>
-                            <div class="col-sm">
-                                <input class="form-check-input textForm-identifierType" type="checkbox" name="category"
-                                       path=category value="Gender" id="textCheckpatientGender">
-                                <label class="form-check-label" for="textCheckpatientGender">
-                                    Gender
-                                </label>
-                            </div>
-                            <div class="col-sm">
-                                <input class="form-check-input textForm-identifierType" type="checkbox" name="category"
-                                       path=category value="RaceEthnicity" id="textCheckpatientRaceEthnicity">
-                                <label class="form-check-label" for="textCheckpatientRaceEthnicity">
-                                    Race/Ethnicity
-                                </label>
-                            </div>
-                            <div class="col-sm">
-                                <input class="form-check-input textForm-identifierType" type="checkbox" name="category"
-                                       path=category value="MaritalStatus" id="textCheckpatientMaritalStatus">
-                                <label class="form-check-label" for="textCheckpatientMaritalStatus">
-                                    Marital Status
-                                </label>
-                            </div>
-                            </div>
-                        </div>
+
                         <div class="col-sm-12 formBox">
+                            <div class="mb-3 mx-1 formBox">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <input class="form-check-input textForm-identifierType" type="checkbox" name="category"
+                                               path=category value="ID" id="textCheckpatientID">
+                                        <label class="form-check-label" for="textCheckpatientID">
+                                            IDs
+                                        </label>
+                                    </div>
+                                    <div class="col-sm">
+                                        <input class="form-check-input textForm-identifierType" type="checkbox" name="category"
+                                               path=category value="Name" id="textCheckpatientName">
+                                        <label class="form-check-label" for="textCheckpatientName">
+                                            Names
+                                        </label>
+                                    </div>
+                                    <div class="col-sm">
+                                        <input class="form-check-input textForm-identifierType" type="checkbox" name="category"
+                                               path=category value="Addr" id="textCheckpatientAddress">
+                                        <label class="form-check-label" for="textCheckpatientAddress">
+                                            Addresses
+                                        </label>
+                                    </div>
+                                    <div class="col-sm">
+                                        <input class="form-check-input textForm-identifierType" type="checkbox" name="category"
+                                               path=category value="DOB" id="textCheckpatientDOB">
+                                        <label class="form-check-label" for="textCheckpatientDOB">
+                                            DOB
+                                        </label>
+                                    </div>
+                                    <div class="col-sm">
+                                        <input class="form-check-input textForm-identifierType" type="checkbox" name="category"
+                                               path=category value="Gender" id="textCheckpatientGender">
+                                        <label class="form-check-label" for="textCheckpatientGender">
+                                            Gender
+                                        </label>
+                                    </div>
+                                    <div class="col-sm">
+                                        <input class="form-check-input textForm-identifierType" type="checkbox" name="category"
+                                               path=category value="RaceEthnicity" id="textCheckpatientRaceEthnicity">
+                                        <label class="form-check-label" for="textCheckpatientRaceEthnicity">
+                                            Race/Ethnicity
+                                        </label>
+                                    </div>
+                                    <div class="col-sm">
+                                        <input class="form-check-input textForm-identifierType" type="checkbox" name="category"
+                                               path=category value="MaritalStatus" id="textCheckpatientMaritalStatus">
+                                        <label class="form-check-label" for="textCheckpatientMaritalStatus">
+                                            Marital Status
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                             <h4 class="mt-3 mr-3 pt-3 pr-3">C-CDA XML:</h4>
                             <textarea style="width: 100%" spellcheck="false" autocomplete="off" autocorrect="off" id="textinput"
                                       name="ccdainput" rows="20" placeholder="Paste C-CDA XML here..."></textarea>

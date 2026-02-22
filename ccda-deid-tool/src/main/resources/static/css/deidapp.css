@@ -104,7 +104,7 @@
 /*}*/
 
 body{
-    padding-bottom: 60px;
+    /*padding-bottom: 60px;*/
 }
 
 /* Custom modal styling */
@@ -241,6 +241,10 @@ body{
     background-color: #f1f5f9;
     border-color: transparent;
 }
+
+#navTabs{
+    margin-bottom: 0;
+}
 .card {
     border: 1px solid #444;
     border-radius: 8px;
@@ -322,3 +326,11 @@ h1 {
     margin-top: 40px;
     margin-bottom: 40px;
 }
+
+#topAlertWarning{
+    margin-bottom: 0;
+}
+
+
+
+
